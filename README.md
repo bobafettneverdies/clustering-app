@@ -1,4 +1,5 @@
 clustering-app
 ==============
 
-my diploma project: c# application for clustering english texts using CLOPE algorithm with included machine-learning
+My diploma project: c# application for english texts clustering using CLOPE algorithm with included machine-learning.
+Developed by Komiakov Dmitrii, SUSU, 2014
