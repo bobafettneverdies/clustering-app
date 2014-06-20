@@ -117,8 +117,6 @@ namespace ClusterisationApp
                     
                     long maxprofitdeltaID = 0; //ID кластера дающего максимальный прирост
                     float maxprofitdelta = 0; //размер максимального прироста критерия Profit
-                    long Wbasic = 0, Sbasic = 0; //параметры кластера из которого удаляется документ
-                    long Wnew = 0, Snew = 0; //параметры кластера в который добавляется документ
                     DocTags dt = new DocTags((long)DocReader[0]); //список идентификаторов тегов текущего документа
                     Cluster clbasic = new Cluster((long)DocReader[1]); //кластер к которому изначально принадлежал документ
                     

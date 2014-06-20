@@ -60,59 +60,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cluster.cs" />
-    <Compile Include="Clustering.cs" />
+    <Compile Include="ClusteringClasses\Cluster.cs" />
+    <Compile Include="ClusteringClasses\Clustering.cs" />
     <Compile Include="DBCon.cs" />
-    <Compile Include="DocTags.cs" />
-    <Compile Include="Document.cs" />
-    <Compile Include="MachineLearningForm.cs">
+    <Compile Include="ClusteringClasses\DocTags.cs" />
+    <Compile Include="MachineLearningClasses\Document.cs" />
+    <Compile Include="Forms\MachineLearningForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MachineLearningForm.Designer.cs">
+    <Compile Include="Forms\MachineLearningForm.Designer.cs">
       <DependentUpon>MachineLearningForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDocForm.cs">
+    <Compile Include="Forms\AddDocForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDocForm.Designer.cs">
+    <Compile Include="Forms\AddDocForm.Designer.cs">
       <DependentUpon>AddDocForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Profit.cs" />
-    <Compile Include="RepulsionForm.cs">
+    <Compile Include="ClusteringClasses\Profit.cs" />
+    <Compile Include="Forms\RepulsionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RepulsionForm.Designer.cs">
+    <Compile Include="Forms\RepulsionForm.Designer.cs">
       <DependentUpon>RepulsionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ShowTagsForm.cs">
+    <Compile Include="Forms\ShowTagsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ShowTagsForm.Designer.cs">
+    <Compile Include="Forms\ShowTagsForm.Designer.cs">
       <DependentUpon>ShowTagsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MachineLearning.cs" />
-    <Compile Include="MachineLearningArray.cs" />
+    <Compile Include="MachineLearningClasses\MachineLearning.cs" />
+    <Compile Include="MachineLearningClasses\MachineLearningArray.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MachineLearningForm.resx">
+    <EmbeddedResource Include="Forms\MachineLearningForm.resx">
       <DependentUpon>MachineLearningForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDocForm.resx">
+    <EmbeddedResource Include="Forms\AddDocForm.resx">
       <DependentUpon>AddDocForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RepulsionForm.resx">
+    <EmbeddedResource Include="Forms\RepulsionForm.resx">
       <DependentUpon>RepulsionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ShowTagsForm.resx">
+    <EmbeddedResource Include="Forms\ShowTagsForm.resx">
       <DependentUpon>ShowTagsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
