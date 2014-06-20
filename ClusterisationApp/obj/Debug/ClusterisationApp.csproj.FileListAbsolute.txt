@@ -1,0 +1,12 @@
+c:\users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\bin\Debug\ClusterisationApp.exe.config
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\bin\Debug\ClusterisationApp.exe
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\bin\Debug\ClusterisationApp.pdb
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.csprojResolveAssemblyReference.cache
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.Properties.Resources.resources
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.csproj.GenerateResource.Cache
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.exe
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.pdb
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.MainForm.resources
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.AddDocForm.resources
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.ShowTagsForm.resources
+C:\Users\123\documents\visual studio 2012\Projects\ClusterisationApp\ClusterisationApp\obj\Debug\ClusterisationApp.RepulsionForm.resources
