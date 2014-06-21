@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.MachineLearningClasses
 {
     class MachineLearning
     {
-        public void StartLearningProcess(long wordsindoccount, long mintagcount, long mintagindoccount)
+        public void StartLearningProcess(long wordsindoccount, long mintagcount, long mintagindoccount, string connectionstring)
         {
 
             //извлечение id документов из базы данных для цикла
-            SqlConnection con = new SqlConnection(DBCon.Con);
-            con.Open();
-            var cmd = new SqlCommand("SELECT [Doc_ID] FROM [Doc]", con);
-            SqlDataReader datareader = cmd.ExecuteReader();
+
+            SqlConnection selectDocConnection = new SqlConnection(connectionstring);
+            selectDocConnection.Open();
+            var cmd = new SqlCommand("SELECT [Doc_ID] FROM [Doc]", selectDocConnection);
+            SqlDataReader selectDocReadereader = cmd.ExecuteReader();
             //цикл по всем документам базы данных
-            while (datareader.Read())
+            while (selectDocReadereader.Read())
             {
-                long i = (long)datareader[0];
-                Document doc = new Document(i);
+                long i = (long)selectDocReadereader[0];
+                Document doc = new Document(i, connectionstring);
                 doc.Normalise();
 
                 string[] docwords = doc.getbody().Split(' ', '/', '\\');
@@ -48,8 +49,7 @@ namespace ClusterisationApp
                 {
                     if (tags[j] != null)
                     {
-                        long ID1;
-                        SqlConnection con1 = new SqlConnection(DBCon.Con);
+                        SqlConnection con1 = new SqlConnection(connectionstring);
                         con1.Open();
 
 
@@ -59,8 +59,8 @@ namespace ClusterisationApp
                         SqlDataReader datareader1 = cmd1.ExecuteReader();
                         if (datareader1.Read())
                         {
-                            ID1 = (long)datareader1[0];
-                            SqlConnection con2 = new SqlConnection(DBCon.Con);
+                            long ID1 = (long)datareader1[0];
+                            SqlConnection con2 = new SqlConnection(connectionstring);
                             con2.Open();
                             var cmd2 = new SqlCommand("UPDATE [TagLearning] SET [TagCount]=[Tagcount]+1 WHERE [TagL_ID]=@id", con2);
                             cmd2.Parameters.AddWithValue("@ID", ID1);
@@ -73,7 +73,7 @@ namespace ClusterisationApp
                         }
                         else
                         {
-                            SqlConnection con2 = new SqlConnection(DBCon.Con);
+                            SqlConnection con2 = new SqlConnection(connectionstring);
                             con2.Open();
                             var cmd4 = new SqlCommand("INSERT INTO [TagLearning] ([TagLWord], [TagCount]) VALUES (@word, 1)", con2);
                             cmd4.Parameters.AddWithValue("@word", tags[j]);
@@ -100,20 +100,20 @@ namespace ClusterisationApp
                     }
                 }
             }
-            con.Close();
+            selectDocConnection.Close();
 
             //Выборка ключевых слов из полученного списка
             long maxID = 0;
-            SqlConnection countcon = new SqlConnection(DBCon.Con);
+            SqlConnection countcon = new SqlConnection(connectionstring);
             countcon.Open();
             var cmdc = new SqlCommand("SELECT MAX([Doc_ID]) FROM [Doc]", countcon);
             SqlDataReader datareaderc = cmdc.ExecuteReader();
             if (datareaderc.Read()) maxID = (long)(datareaderc[0]);
             countcon.Close();
-            MachineLearningArray mla = new MachineLearningArray();
+            MachineLearningArray mla = new MachineLearningArray(connectionstring);
             long taggeddoccount = 0;
-            con.Open();
-            var tagselect = new SqlCommand("SELECT [TagL_ID], [TagLWord], [TagCount] FROM [TagLearning] WHERE [TagCount]>@tc OR [TagCount]=@tc ORDER BY [TagCount]", con);
+            selectDocConnection.Open();
+            var tagselect = new SqlCommand("SELECT [TagL_ID], [TagLWord], [TagCount] FROM [TagLearning] WHERE [TagCount]>@tc OR [TagCount]=@tc ORDER BY [TagCount]", selectDocConnection);
             tagselect.Parameters.AddWithValue("@tc", mintagcount);
             SqlDataReader tagreader = tagselect.ExecuteReader();
             long tagid = 1;
@@ -126,7 +126,7 @@ namespace ClusterisationApp
                 string tagword = (string)tagreader["TagLWord"];
                 double IDF = Math.Log((double)(maxID) / (double)((long)tagreader["TagCount"]));
 
-                SqlConnection tagins = new SqlConnection(DBCon.Con);
+                SqlConnection tagins = new SqlConnection(connectionstring);
                 tagins.Open();
                 var cmdt = new SqlCommand("INSERT INTO [Tag] ([TagWord], [IDF]) VALUES (@tagword, @idf)", tagins);
                 cmdt.Parameters.AddWithValue("@tagword", tagword);
@@ -134,7 +134,7 @@ namespace ClusterisationApp
                 cmdt.ExecuteNonQuery();
                 tagins.Close();
 
-                SqlConnection tagindoccon = new SqlConnection(DBCon.Con);
+                SqlConnection tagindoccon = new SqlConnection(connectionstring);
                 tagindoccon.Open();
                 var tidcmd = new SqlCommand("SELECT [Doc_ID] FROM [TagLearningInDoc] WHERE [TagL_ID]=@ID", tagindoccon);
                 tidcmd.Parameters.AddWithValue("@ID", taglid);
@@ -142,7 +142,7 @@ namespace ClusterisationApp
 
                 while (tidreader.Read())
                 {
-                    taggeddoccount += mla.ArrayModify((long)tidreader[0], mintagindoccount);
+                    taggeddoccount += mla.ArrayModify((long)tidreader[0], mintagindoccount, connectionstring);
                     tagins.Open();
                     var cmdtid = new SqlCommand("INSERT INTO [TagInDoc] ([Tag_ID], [Doc_ID]) VALUES (@tagid, @docid)", tagins);
                     cmdtid.Parameters.AddWithValue("@tagid", tagid);
@@ -154,7 +154,7 @@ namespace ClusterisationApp
                 tagindoccon.Close();
                 tagid += 1;
             }
-            con.Close();
+            selectDocConnection.Close();
 
         }//startlearningprocess
     }

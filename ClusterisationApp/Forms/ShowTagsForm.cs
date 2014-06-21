@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.Forms
 {
     public partial class ShowTagsForm : Form
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.Forms
 {
     public partial class AddDocForm : Form
     {

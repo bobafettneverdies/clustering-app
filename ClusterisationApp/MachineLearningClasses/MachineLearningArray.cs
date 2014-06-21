@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.MachineLearningClasses
 {
     class MachineLearningArray
     {
         private short[] LearningArray;
         private long[] DocIDs;
-        public MachineLearningArray(){
-            SqlConnection con = new SqlConnection(DBCon.Con);
+        public MachineLearningArray(string connectionstring)
+        {
+            SqlConnection con = new SqlConnection(connectionstring);
             con.Open();
             var cmd = new SqlCommand("SELECT COUNT([Doc_ID]) FROM [Doc]", con);
             SqlDataReader datareader = cmd.ExecuteReader();
             if (datareader.Read())
             {
-                LearningArray = new short[(int) datareader[0]];
+                LearningArray = new short[(int)datareader[0]];
                 DocIDs = new long[(int)datareader[0]];
             }
             con.Close();
@@ -25,13 +26,13 @@ namespace ClusterisationApp
             datareader = cmd.ExecuteReader();
             while (datareader.Read())
             {
-                DocIDs[i] = (long) datareader[0];
+                DocIDs[i] = (long)datareader[0];
                 i++;
             }
             con.Close();
         }
 
-        public int ArrayModify(long ID, long mintagindoccount)
+        public int ArrayModify(long ID, long mintagindoccount, string connectionstring)
         {
             int i = Array.IndexOf(DocIDs, ID, 0);
             if (this.LearningArray[i] >= mintagindoccount) return 0;
@@ -41,13 +42,13 @@ namespace ClusterisationApp
                 if (this.LearningArray[i] < mintagindoccount) return 0;
                 else
                 {
-                    SqlConnection con = new SqlConnection(DBCon.Con);
+                    SqlConnection con = new SqlConnection(connectionstring);
                     con.Open();
                     var cmd = new SqlCommand("UPDATE [Doc] Set [IsMarked]='True' WHERE [Doc_ID]=@id", con);
                     cmd.Parameters.AddWithValue("@id", ID);
                     cmd.ExecuteNonQuery();
                     con.Close();
-                    
+
                     return 1;
                 }
             }

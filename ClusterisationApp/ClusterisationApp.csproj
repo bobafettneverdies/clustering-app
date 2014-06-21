@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,10 +63,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClusteringClasses\Cluster.cs" />
     <Compile Include="ClusteringClasses\Clustering.cs" />
+    <Compile Include="ClusteringClasses\Cluster.cs" />
+    <Compile Include="ClusteringClasses\DBClusterMethods.cs" />
     <Compile Include="DBCon.cs" />
     <Compile Include="ClusteringClasses\DocTags.cs" />
+    <Compile Include="MachineLearningClasses\MachineLearning.cs" />
+    <Compile Include="MachineLearningClasses\MachineLearningArray.cs" />
     <Compile Include="MachineLearningClasses\Document.cs" />
     <Compile Include="Forms\MachineLearningForm.cs">
       <SubType>Form</SubType>
@@ -96,8 +102,6 @@
     <Compile Include="Forms\ShowTagsForm.Designer.cs">
       <DependentUpon>ShowTagsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MachineLearningClasses\MachineLearning.cs" />
-    <Compile Include="MachineLearningClasses\MachineLearningArray.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\MachineLearningForm.resx">
@@ -124,6 +128,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

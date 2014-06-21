@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using ClusterisationApp.ClusteringClasses;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.Forms
 {
     public partial class RepulsionForm : Form
     {
@@ -19,7 +20,7 @@ namespace ClusterisationApp
                 //DialogResult goodresult;
                 //goodresult = MessageBox.Show("Начало алгоритма кластеризации", "Сообщение", MessageBoxButtons.OK);
                 Clustering clustering = new Clustering();
-                clustering.StartClusteringAlg(r);
+                clustering.StartClusteringAlg(r, DBCon.Con);
                 Close();
             }
 

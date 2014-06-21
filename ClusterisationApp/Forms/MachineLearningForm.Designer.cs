@@ -1,4 +1,4 @@
-﻿namespace ClusterisationApp
+﻿namespace ClusterisationApp.Forms
 {
     partial class MachineLearningForm
     {

@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.ClusteringClasses
 {
     class Profit
     {
-        private float profit=0;
-        
-        public float DeltaAdd(Cluster C, DocTags t, float r) //подсчет прироста Profit(C,r) при добавлении документа t в кластер С
+        private float _profit = 0;
+
+        public float DeltaAdd(Cluster C, DocTags t, float r, string connectionstring) //подсчет прироста Profit(C,r) при добавлении документа t в кластер С
         {
             long S_new = C.getS() + (t.GetTagIDs()).Length;
             long W_new = C.getW();
 
             long[] tagarray = t.GetTagIDs();
-            
+
             for (long i = 0; i < tagarray.Length; i++)
             {
-                SqlConnection con = new SqlConnection(DBCon.Con);
+                SqlConnection con = new SqlConnection(connectionstring);
                 con.Open();
                 var cmd = new SqlCommand("SELECT [Occ] FROM [TagInCluster] WHERE [Cluster_ID]=@clid AND [Tag_ID]=@tid", con);
                 cmd.Parameters.AddWithValue("@clid", C.getID());
@@ -33,11 +33,11 @@ namespace ClusterisationApp
             float prev;
             if (C.getW() == 0) prev = 0;
             else prev = (float)C.getS() * (float)C.getN() / (float)Math.Pow((float)C.getW(), (float)r);
-            
-            return (float)S_new*((float)C.getN()+1)/(float)Math.Pow((float)W_new, (float)r) - prev;
+
+            return (float)S_new * ((float)C.getN() + 1) / (float)Math.Pow((float)W_new, (float)r) - prev;
         }
 
-        public float DeltaSub(Cluster C, DocTags t, float r) //подсчет прироста Profit(C,r) при удалении документа t из кластера С
+        public float DeltaSub(Cluster C, DocTags t, float r, string connectionstring) //подсчет прироста Profit(C,r) при удалении документа t из кластера С
         {
             long S_new = C.getS() - (t.GetTagIDs()).Length;
             long W_new = C.getW();
@@ -46,7 +46,7 @@ namespace ClusterisationApp
             long[] tagarray = t.GetTagIDs();
             for (long i = 0; i < tagarray.Length; i++)
             {
-                SqlConnection con = new SqlConnection("Data Source=HOME; Initial Catalog=DocsDataBase; Integrated Security=True;");
+                SqlConnection con = new SqlConnection(connectionstring);
                 con.Open();
                 var cmd = new SqlCommand("SELECT [Occ] FROM [TagInCluster] WHERE [Cluster_ID]=@clid AND [Tag_ID]=@tid", con);
                 cmd.Parameters.AddWithValue("@clid", C.getID());
@@ -59,7 +59,7 @@ namespace ClusterisationApp
             return (float)S_new * ((float)C.getN() - 1) / (float)Math.Pow((float)W_new, (float)r) - (float)C.getS() * (float)C.getN() / (float)Math.Pow((float)C.getW(), (float)r);
         }
 
-        public void profitmodify(float delta) { this.profit += delta; }
-        public float GetProfit() { return profit; }
+        public void Profitmodify(float delta) { this._profit += delta; }
+        public float GetProfit() { return _profit; }
     }
 }

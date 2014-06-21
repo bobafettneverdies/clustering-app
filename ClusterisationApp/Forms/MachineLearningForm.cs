@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using ClusterisationApp.MachineLearningClasses;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.Forms
 {
     public partial class MachineLearningForm : Form
     {
@@ -21,7 +22,7 @@ namespace ClusterisationApp
                 //DialogResult goodresult;
                 //goodresult = MessageBox.Show("Начало алгоритма кластеризации", "Сообщение", MessageBoxButtons.OK);
                 MachineLearning ml = new MachineLearning();
-                ml.StartLearningProcess(wordsindoccount, mintagcount, mintagindoccount);
+                ml.StartLearningProcess(wordsindoccount, mintagcount, mintagindoccount, DBCon.Con);
                 Close();
             }
 

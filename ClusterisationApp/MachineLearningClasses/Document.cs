@@ -1,11 +1,11 @@
 ﻿using System.Data.SqlClient;
 
-namespace ClusterisationApp
+namespace ClusterisationApp.MachineLearningClasses
 {
     class Document
     {
-        private long docid; //идентификатор документа
-        private string docbody; //текст документа
+        private long _docid; //идентификатор документа
+        private string _docbody; //текст документа
         private string[] InsignificantWords = //незначащие символы и слова
         {    ",", ".", "?", ":", "!", ";", "\n", "—", "(", ")", "{", "}", "/", "\\", "[", "]", "\"", "”", "“", "\'", "\"", " - ", "<", ">",
              " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 ", " 0 ", 
@@ -36,37 +36,37 @@ namespace ClusterisationApp
              " where " ,  " which " ,  " while " ,  " white " ,  " who " ,  " why " ,  " will " ,  " win " ,  " window " ,  " with " ,  " without " , 
              " woman " ,  " word " ,  " work " ,  " world " ,  " would " ,     " yeah " ,  " year " ,  " yes " ,  " you " ,  " young " ,  " your ", " did ", " had ", " has", " going ", " went ", " gone ", 
              "does", "doing", "done", "people", "guys", " came ", " s "};
-        
-        public Document(long ID)
+
+        public Document(long ID, string connectionstring)
         {
 
-            docid = ID;
+            _docid = ID;
 
-            SqlConnection con = new SqlConnection(DBCon.Con);
+            SqlConnection con = new SqlConnection(connectionstring);
             con.Open();
 
             var cmd = new SqlCommand("SELECT [DocBody] FROM [Doc] WHERE [Doc_ID]=@ID", con);
             cmd.Parameters.AddWithValue("@ID", ID);
-            
-            SqlDataReader datareader=cmd.ExecuteReader();
-            
+
+            SqlDataReader datareader = cmd.ExecuteReader();
+
             while (datareader.Read())
-                docbody = datareader[0].ToString();
+                _docbody = datareader[0].ToString();
 
             con.Close();
-            
+
         }
 
         public void Normalise() //нормализовать текст документа
         {
-            this.docbody=this.docbody.ToLower();
-            
+            this._docbody = this._docbody.ToLower();
+
             for (int i = 0; i < InsignificantWords.Length; ++i)
             {
-                this.docbody = this.docbody.Replace(InsignificantWords[i]," ");
+                this._docbody = this._docbody.Replace(InsignificantWords[i], " ");
             }
         }
-        
-        public string getbody() { return this.docbody; } //получить текст документа
+
+        public string getbody() { return this._docbody; } //получить текст документа
     }
 }
