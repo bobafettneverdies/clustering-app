@@ -2,7 +2,7 @@
 
 namespace ClusterisationApp.ClusteringClasses
 {
-    class Cluster
+    public class Cluster
     {
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private long _clustid;
@@ -27,7 +27,7 @@ namespace ClusterisationApp.ClusteringClasses
             con.Close();
         }
 
-        public void DeleteAllEmptyTagInDocs(string connectionstring)
+        public void DeleteAllEmptyTagInCluster(string connectionstring)
         {
             SqlConnection con = new SqlConnection(connectionstring);
             con.Open();

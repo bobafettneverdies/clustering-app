@@ -2,7 +2,7 @@
 
 namespace ClusterisationApp.ClusteringClasses
 {
-    class DocTags //список тегов покрывающих документ
+    public class DocTags //список тегов покрывающих документ
     {
         private long _docId; //идентификатор документа
         // ReSharper disable once FieldCanBeMadeReadOnly.Local

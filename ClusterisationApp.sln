@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClusterisationApp", "ClusterisationApp\ClusterisationApp.csproj", "{FD4CF7CB-21FC-420F-B6F2-8A315CB3F22A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClusterisationApp.Test", "ClusterisationApp.Test\ClusterisationApp.Test.csproj", "{B0092CA2-CA0B-448E-A382-7039056E2AD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClusterisationApp.Test", "ClusterisationApp.Test\ClusterisationApp.Test.csproj", "{2FA180EE-CDF9-4100-99CE-832CA0326991}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		{FD4CF7CB-21FC-420F-B6F2-8A315CB3F22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD4CF7CB-21FC-420F-B6F2-8A315CB3F22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD4CF7CB-21FC-420F-B6F2-8A315CB3F22A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0092CA2-CA0B-448E-A382-7039056E2AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0092CA2-CA0B-448E-A382-7039056E2AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0092CA2-CA0B-448E-A382-7039056E2AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0092CA2-CA0B-448E-A382-7039056E2AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA180EE-CDF9-4100-99CE-832CA0326991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA180EE-CDF9-4100-99CE-832CA0326991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA180EE-CDF9-4100-99CE-832CA0326991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA180EE-CDF9-4100-99CE-832CA0326991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

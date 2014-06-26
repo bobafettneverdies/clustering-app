@@ -2,7 +2,7 @@
 
 namespace ClusterisationApp.ClusteringClasses
 {
-    class Clustering
+    public class Clustering
     {
         public void StartClusteringAlg(float r, string connectionstring)
         {
@@ -79,7 +79,7 @@ namespace ClusterisationApp.ClusteringClasses
                 clcmd = new SqlCommand("SElECT [Cluster_ID] FROM [Cluster] WHERE W=0", clustercon);
                 ClReader = clcmd.ExecuteReader();
                 if (ClReader.Read()) clustercon.Close(); //если пустых кластеров не осталось, добавляем новый
-                else DBClusterMethods.CreateEmptyCluster(connectionstring);
+                else { DBClusterMethods.CreateEmptyCluster(connectionstring); clustercon.Close(); }
             }
             con.Close();
 
@@ -160,7 +160,7 @@ namespace ClusterisationApp.ClusteringClasses
                             ticcon.Close();
                         }
 
-                        clbasic.DeleteAllEmptyTagInDocs(connectionstring); //очистка таблиц от записей о тегах, встречающихся в кластере 0 раз
+                        clbasic.DeleteAllEmptyTagInCluster(connectionstring); //очистка таблиц от записей о тегах, встречающихся в кластере 0 раз
 
                         //пересчет характеристик кластера из которого удалили документ
                         clbasic.ConvertDBFields(connectionstring);
@@ -171,7 +171,7 @@ namespace ClusterisationApp.ClusteringClasses
                         clcmd = new SqlCommand("SElECT [Cluster_ID] FROM [Cluster] WHERE W=0", clustercon);
                         ClReader = clcmd.ExecuteReader();
                         if (ClReader.Read()) clustercon.Close();
-                        else DBClusterMethods.CreateEmptyCluster(connectionstring);
+                        else { DBClusterMethods.CreateEmptyCluster(connectionstring); clustercon.Close();}
                     }
                 }
                 con.Close();

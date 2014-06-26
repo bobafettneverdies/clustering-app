@@ -2,7 +2,7 @@
 
 namespace ClusterisationApp.ClusteringClasses
 {
-    class DBClusterMethods
+    public class DBClusterMethods
     {
         static public void DeleteAllEmptyClustersFromDataBase(string connectionstring)
         {

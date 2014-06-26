@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace ClusterisationApp.ClusteringClasses
 {
-    class Profit
+    public class Profit
     {
         private float _profit = 0;
 
