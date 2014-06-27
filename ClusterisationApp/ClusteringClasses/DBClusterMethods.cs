@@ -32,5 +32,36 @@ namespace ClusterisationApp.ClusteringClasses
             cmd.ExecuteNonQuery();
             con.Close();
         }
+
+        static public void UpdateTagInClusterOccPlus1(long Tag_ID, long Cluster_ID, string connectionstring)
+        {
+            SqlConnection ticcon = new SqlConnection(connectionstring);
+            ticcon.Open();
+
+            var ticcmd = new SqlCommand("SELECT [TagInCl_ID] FROM [TaginCluster] WHERE [Tag_ID]=@tid AND [Cluster_ID]=@cid", ticcon);
+            ticcmd.Parameters.AddWithValue("@tid", Tag_ID);
+            ticcmd.Parameters.AddWithValue("@cid", Cluster_ID);
+            SqlDataReader ticReader = ticcmd.ExecuteReader();
+            if (ticReader.Read())
+            {
+                SqlConnection ticcon1 = new SqlConnection(connectionstring);
+                ticcon1.Open();
+                var ticcmd1 = new SqlCommand("UPDATE [TaginCluster] SET [Occ]=Occ+1 WHERE [TagInCl_ID]=@id", ticcon1);
+                ticcmd1.Parameters.AddWithValue("@id", (long)ticReader[0]);
+                ticcmd1.ExecuteNonQuery();
+                ticcon1.Close();
+            }
+            else
+            {
+                SqlConnection ticcon1 = new SqlConnection(connectionstring);
+                ticcon1.Open();
+                var ticcmd1 = new SqlCommand("INSERT INTO [TagInCluster] ([Tag_ID], [Cluster_ID], [Occ]) VALUES (@tid, @cid, 1)", ticcon1);
+                ticcmd1.Parameters.AddWithValue("@tid", Tag_ID);
+                ticcmd1.Parameters.AddWithValue("@cid", Cluster_ID);
+                ticcmd1.ExecuteNonQuery();
+                ticcon1.Close();
+            }
+            ticcon.Close();
+        }
     }
 }

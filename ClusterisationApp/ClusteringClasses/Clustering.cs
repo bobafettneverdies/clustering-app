@@ -19,7 +19,7 @@ namespace ClusterisationApp.ClusteringClasses
             while (DocReader.Read())
             {
                 long maxprofitdeltaId = 0; //ID кластера дающего максимальный прирост
-                float maxprofitdelta = 0; //размер максимального прироста критерия Profit
+                float maxprofitdelta = 0; //размер максимального прироста глобального критерия Profit
 
                 DocTags dt = new DocTags((long)DocReader[0], connectionstring);
 
@@ -39,38 +39,10 @@ namespace ClusterisationApp.ClusteringClasses
                 pf.Profitmodify(maxprofitdelta);
                 Cluster clnew = new Cluster(maxprofitdeltaId, connectionstring);
 
-                //запись данных в БД
                 DBClusterMethods.UpdateClusterIDInDoc(maxprofitdeltaId, (long)DocReader[0], connectionstring);
 
-                for (long i = 0; i < dt.GetTagIDs().Length; i++)
-                {
-                    SqlConnection ticcon = new SqlConnection(connectionstring);
-                    ticcon.Open();
-
-                    var ticcmd = new SqlCommand("SELECT [TagInCl_ID] FROM [TaginCluster] WHERE [Tag_ID]=@tid AND [Cluster_ID]=@cid", ticcon);
-                    ticcmd.Parameters.AddWithValue("@tid", dt.GetTagIDs()[i]);
-                    ticcmd.Parameters.AddWithValue("@cid", maxprofitdeltaId);
-                    SqlDataReader ticReader = ticcmd.ExecuteReader();
-                    if (ticReader.Read())
-                    {
-                        SqlConnection ticcon1 = new SqlConnection(connectionstring);
-                        ticcon1.Open();
-                        var ticcmd1 = new SqlCommand("UPDATE [TaginCluster] SET [Occ]=Occ+1 WHERE [TagInCl_ID]=@id", ticcon1);
-                        ticcmd1.Parameters.AddWithValue("@id", (long)ticReader[0]);
-                        ticcmd1.ExecuteNonQuery();
-                        ticcon1.Close();
-                    }
-                    else
-                    {
-                        clustercon.Open();
-                        clcmd = new SqlCommand("INSERT INTO [TagInCluster] ([Tag_ID], [Cluster_ID], [Occ]) VALUES (@tid, @cid, 1)", clustercon);
-                        clcmd.Parameters.AddWithValue("@tid", dt.GetTagIDs()[i]);
-                        clcmd.Parameters.AddWithValue("@cid", maxprofitdeltaId);
-                        clcmd.ExecuteNonQuery();
-                        clustercon.Close();
-                    }
-                    ticcon.Close();
-                }
+                for (long i = 0; i < dt.GetTagIDs().Length; i++) DBClusterMethods.UpdateTagInClusterOccPlus1(dt.GetTagIDs()[i], maxprofitdeltaId, connectionstring);
+                
 
                 //пересчет характеристик кластера
                 clnew.ConvertDBFields(connectionstring);
@@ -85,7 +57,7 @@ namespace ClusterisationApp.ClusteringClasses
 
             //Фаза 2 - итерация
 
-            bool moved = false; //маркер перемещения документов между кластерами
+            bool moved = false; //флаг перемещения документов между кластерами
 
             do //пока документы перемещаются между кластерами
             {
@@ -115,8 +87,7 @@ namespace ClusterisationApp.ClusteringClasses
 
                     clustercon.Close();
 
-                    if (!localmoved) continue; //если документ не переместился
-                    else
+                    if (localmoved) 
                     {
                         itermoved = true;
                         pf.Profitmodify(maxprofitdelta);
@@ -134,30 +105,7 @@ namespace ClusterisationApp.ClusteringClasses
                             ticcmd.ExecuteNonQuery();
                             ticcon.Close();
 
-                            ticcon.Open();
-                            ticcmd = new SqlCommand("SELECT [TagInCl_ID] FROM [TaginCluster] WHERE [Tag_ID]=@tid AND [Cluster_ID]=@cid", ticcon);
-                            ticcmd.Parameters.AddWithValue("@tid", dt.GetTagIDs()[i]);
-                            ticcmd.Parameters.AddWithValue("@cid", maxprofitdeltaId);
-                            SqlDataReader ticReader = ticcmd.ExecuteReader();
-                            if (ticReader.Read())
-                            {
-                                SqlConnection ticcon1 = new SqlConnection(connectionstring);
-                                ticcon1.Open();
-                                var ticcmd1 = new SqlCommand("UPDATE [TaginCluster] SET [Occ]=Occ+1 WHERE [TagInCl_ID]=@id", ticcon1);
-                                ticcmd1.Parameters.AddWithValue("@id", (long)ticReader[0]);
-                                ticcmd1.ExecuteNonQuery();
-                                ticcon1.Close();
-                            }
-                            else
-                            {
-                                clustercon.Open();
-                                clcmd = new SqlCommand("INSERT INTO [TagInCluster] ([Tag_ID], [Cluster_ID], [Occ]) VALUES (@tid, @cid, 1)", clustercon);
-                                clcmd.Parameters.AddWithValue("@tid", dt.GetTagIDs()[i]);
-                                clcmd.Parameters.AddWithValue("@cid", maxprofitdeltaId);
-                                clcmd.ExecuteNonQuery();
-                                clustercon.Close();
-                            }
-                            ticcon.Close();
+                            DBClusterMethods.UpdateTagInClusterOccPlus1(dt.GetTagIDs()[i], maxprofitdeltaId, connectionstring);
                         }
 
                         clbasic.DeleteAllEmptyTagInCluster(connectionstring); //очистка таблиц от записей о тегах, встречающихся в кластере 0 раз
