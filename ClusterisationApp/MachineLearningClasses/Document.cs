@@ -67,6 +67,6 @@ namespace ClusterisationApp.MachineLearningClasses
             }
         }
 
-        public string getbody() { return this._docbody; } //получить текст документа
+        public string Getbody() { return this._docbody; } //получить текст документа
     }
 }

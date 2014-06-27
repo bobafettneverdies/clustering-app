@@ -14,7 +14,7 @@ namespace ClusterisationApp.ClusteringClasses
             //Фаза 1 - инициализация
             SqlConnection con = new SqlConnection(connectionstring);
             con.Open();
-            var cmd = new SqlCommand("SELECT [Doc_ID] FROM [Doc] WHERE Cluster_ID IS NULL", con);
+            var cmd = new SqlCommand("SELECT [Doc_ID] FROM [Doc] WHERE Cluster_ID IS NULL AND IsMarked='True'", con);
             SqlDataReader DocReader = cmd.ExecuteReader();
             while (DocReader.Read())
             {
@@ -63,7 +63,7 @@ namespace ClusterisationApp.ClusteringClasses
             {
                 bool itermoved = false; //маркер перемещения документов между кластерами на текущей итерации
                 con.Open();
-                cmd = new SqlCommand("SELECT [Doc_ID], [Cluster_ID] FROM [Doc]", con);
+                cmd = new SqlCommand("SELECT [Doc_ID], [Cluster_ID] FROM [Doc] WHERE IsMarked='True'", con);
                 DocReader = cmd.ExecuteReader();
                 while (DocReader.Read())
                 {

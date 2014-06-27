@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ClusteringTests.cs" />
+    <Compile Include="MachineLearningTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

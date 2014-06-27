@@ -21,7 +21,7 @@ namespace ClusterisationApp.MachineLearningClasses
                 Document doc = new Document(i, connectionstring);
                 doc.Normalise();
 
-                string[] docwords = doc.getbody().Split(' ', '/', '\\');
+                string[] docwords = doc.Getbody().Split(' ', '/', '\\');
                 string[] tags = new string[wordsindoccount];
                 int[] tagcount = new int[wordsindoccount];
                 int minnum = 0;
