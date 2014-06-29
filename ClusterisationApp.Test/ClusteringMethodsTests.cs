@@ -9,10 +9,10 @@ using Assert = NUnit.Framework.Assert;
 namespace ClusterisationApp.Test
 {
     [TestClass]
-    public class ClusteringTests
+    public class ClusteringMethodsTests
     {
         private const string TestConnection = "Data Source=HOME; Initial Catalog=ClusteringAppTestDB; Integrated Security=True;";
-        
+        /*
         //DBClusterMethods
         [TestMethod]
         public void TestCreateEmptyCluster()
@@ -135,6 +135,6 @@ namespace ClusterisationApp.Test
             DocTags dt = new DocTags(1, TestConnection);
             Assert.AreEqual(true, pf.DeltaAdd(cl, dt, 1, TestConnection) > 0);
             Assert.AreEqual(false, pf.DeltaSub(cl, dt, 1, TestConnection) > 0);
-        }
+        }*/
     }
 }

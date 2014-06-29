@@ -2,7 +2,7 @@
 
 namespace ClusterisationApp.MachineLearningClasses
 {
-    class Document
+    public class Document
     {
         private long _docid; //идентификатор документа
         private string _docbody; //текст документа

@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace ClusterisationApp.MachineLearningClasses
 {
-    class MachineLearning
+    public class MachineLearning
     {
         public void StartLearningProcess(long wordsindoccount, long mintagcount, long mintagindoccount, string connectionstring)
         {

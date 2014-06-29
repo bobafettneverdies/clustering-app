@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace ClusterisationApp.MachineLearningClasses
 {
-    class MachineLearningArray
+    public class MachineLearningArray
     {
         private short[] LearningArray;
         private long[] DocIDs;
