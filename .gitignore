@@ -1,0 +1,16 @@
+#Игнорирование всех файлов данных типов
+*.suo
+*.exe
+*.exe.*
+*.config
+*.pdb
+*.resources
+*.cache
+*.Cache
+*.txt
+Temporary*.cs
+*.settings
+#Игнорирование всех файлов в данных директориях
+obj/
+bin/
+Debug/

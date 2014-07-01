@@ -67,7 +67,8 @@
     <Compile Include="ClusteringClasses\Clustering.cs" />
     <Compile Include="ClusteringClasses\Cluster.cs" />
     <Compile Include="ClusteringClasses\DBClusterMethods.cs" />
-    <Compile Include="DBCon.cs" />
+    <Compile Include="Consts\Consts.cs" />
+    <Compile Include="Consts\DBCon.cs" />
     <Compile Include="ClusteringClasses\DocTags.cs" />
     <Compile Include="MachineLearningClasses\MachineLearning.cs" />
     <Compile Include="MachineLearningClasses\MachineLearningArray.cs" />
